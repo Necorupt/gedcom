@@ -1,0 +1,31 @@
+{
+    "id": "ae0400d6-cc5e-4cfe-a4fc-a44eef4d9f0e",
+
+    "data": {
+        "form": {
+            "name": "neco",
+            "role": "Это я",
+            "alive": true,
+            "photo": null,
+            "gender": 1,
+            "last_name": "Necorupt",
+            "patronymic": "neco",
+            "maiden_name": null,
+            "date_of_birth": "01.01.2025",
+            "date_of_death": null,
+            "family_tree_id": null,
+            "custom_date_of_birth": null,
+            "custom_date_of_death": null
+        },
+        "type": "card",
+        "inPoint": null,
+        "kinship": { "knee": 0, "role": "я", "breed": 0 },
+        "isPartner": false,
+        "outPoints": [],
+        "defaultPosition": { "x": 1, "y": 1 }
+    },
+    "type": "custom",
+    "extent": null,
+    "position": { "x": 1, "y": 1 },
+    "parentNode": null
+}
