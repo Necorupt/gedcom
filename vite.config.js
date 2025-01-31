@@ -9,11 +9,5 @@ export default defineConfig({
         }),
     ],
     server: {
-        port: 25565,
-        host: 'mc.necorupt.mooo.com',
-        hmr: {
-            port: 25565,
-            host: 'mc.necorupt.mooo.com',
-        }
     },
 });
