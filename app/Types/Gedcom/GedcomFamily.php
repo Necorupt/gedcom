@@ -33,7 +33,7 @@ class GedcomFamily extends Fam
         $this->id = $fam->getId();
     }
 
-    public function parse(GedcomImporter $importer): self
+    public function parse(GedcomImporter $importer, GedcomBuilder $builder): self
     {
         $this->husb = new GedcomNode($importer->getNodeById($this->husbandId));
         $importer->addLoadedIndi($this->husb->getId());
@@ -56,10 +56,5 @@ class GedcomFamily extends Fam
 
     public function getId(): string {
         return $this->id;
-    }
-
-    public function getChildrens(): array
-    {
-        return $this->childrens;
     }
 };
