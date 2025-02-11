@@ -15,11 +15,7 @@ class GedcomFamily extends Fam
 
     private GedcomNode $husb;
     private GedcomNode $wife;
-
-    /**
-     * @var GedcomNode[] $childrens
-     */
-    private array $childrens;
+    public array $childrens = [];
 
     public function __construct(Fam $fam)
     {
@@ -33,28 +29,51 @@ class GedcomFamily extends Fam
         $this->id = $fam->getId();
     }
 
-    public function parse(GedcomImporter $importer, GedcomBuilder $builder): self
+    public function setWife(GedcomNode|null $node): self
     {
-        $this->husb = new GedcomNode($importer->getNodeById($this->husbandId));
-        $importer->addLoadedIndi($this->husb->getId());
-
-        $this->wife = new GedcomNode($importer->getNodeById($this->wifeId));
-        $importer->addLoadedIndi($this->wife->getId());
-
-        $importer->addLoadedFamily($this->id);
-
-        foreach($this->childrensId as $id){
-            $children = new GedcomNode($importer->getNodeById($id));
-
-            $importer->addLoadedIndi($children->getId());
-
-            $this->childrens[] = $children;
+        if ($node !== null) {
+            $this->wife = $node;
         }
 
         return $this;
     }
 
-    public function getId(): string {
+    public function setHusb(GedcomNode|null $node): self
+    {
+        if ($node !== null) {
+            $this->husb = $node;
+        }
+
+        return $this;
+    }
+
+    public function getId(): string
+    {
         return $this->id;
+    }
+
+    public function getChildsId(): array
+    {
+        return $this->childrensId;
+    }
+
+    public function getHusbandId(): string
+    {
+        return $this->husbandId;
+    }
+
+    public function getWifeId(): string
+    {
+        return $this->wifeId;
+    }
+
+    public function getHusband(): GedcomNode
+    {
+        return $this->husb;
+    }
+
+    public function getWife(): GedcomNode
+    {
+        return $this->wife;
     }
 };

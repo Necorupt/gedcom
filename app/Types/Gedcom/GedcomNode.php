@@ -9,31 +9,34 @@ use App\Types\Gedcom\Fams as IntFams;
 class GedcomNode
 {
     private string $name = '';
-    private Famc|null $family = null;
-    private Fams|null $childFamily = null;
+    private Fams|null $family = null;
+    private Famc|null $parentFamily = null;
     private string $gedcomId = '';
-    private GedcomFamily $ownFamily;
+    private int $treeDepth = 0;
 
-    public function __construct(Indi $indi = null)
+    public GedcomFamily|null $tmpSelf = null;
+    public GedcomFamily|null $tmpParent = null;
+
+    public function __construct(Indi $indi = null, int $depth = 0)
     {
         if ($indi === null) {
             return;
         }
+
+        $this->treeDepth = $depth;
 
         $gedcomName = $indi->getName()[0];
 
         $this->name = $gedcomName->getName();
         $this->gedcomId = $indi->getId();
 
-        if(isset($indi->getFamc()[0])) {
-            $this->family = new Famc($indi->getFamc()[0]);
+        if (isset($indi->getFamc()[0])) {
+            $this->parentFamily = new Famc($indi->getFamc()[0]);
         }
 
-        if(isset($indi->getFams()[0])){
-            $this->childFamily = new Fams($indi->getFams()[0]);
+        if (isset($indi->getFams()[0])) {
+            $this->family = new Fams($indi->getFams()[0]);
         }
-
-        dd($this);
     }
 
     public function buildTemp(Indi $indi): self
@@ -48,22 +51,18 @@ class GedcomNode
         return $this->name;
     }
 
-    public function getFamily(): IntFamc |null
+    public function getFamily(): IntFams |null
     {
         return $this->family;
     }
 
-    public function getChildFamily(): IntFams
+    public function getParentFamily(): IntFamc|null
     {
-        return $this->childFamily;
+        return $this->parentFamily;
     }
 
-    public function getId(): string 
+    public function getId(): string
     {
         return $this->gedcomId;
-    }
-
-    public function setOwnFamily (GedcomFamily $family){
-        $this->ownFamily = $family;
     }
 };
